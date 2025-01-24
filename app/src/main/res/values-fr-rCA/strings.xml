@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">ProjetFinal</string>
+    <string name="drawer_open">Ouvrir le menu de navigation</string>
+    <string name="drawer_close">Fermer le menu de navigation</string>
+    <string name="searchHint">Rechercher des articles</string>
+    <string name="searchTerm">Veuillez entrer un terme de recherche</string>
+    <string name="welcomeMessage">Bienvenue dans l\'application de nouvelles Guardian!</string>
+    <string name="instructionsMessage">Utilisez la barre de recherche ci-dessus pour trouver des articles de presse.</string>
+    <string name="menuHome">Accueil</string>
+    <string name="menuSaved">Articles Enregistrés</string>
+    <string name="menuSettings">Paramètres</string>
+    <string name="menuHistory">Historique</string>
+    <string name="clearHistory">Effacer l\'historique</string>
+    <string name="helpButton">Bouton d\'Aide</string>
+    <string name="saveButton">Enregistrer</string>
+    <string name="searchButton">Rechercher</string>
+    <string name="historyEmpty">Aucun article consulté pour l’instant.</string>
+    <string name="deleteConfirmation">Êtes-vous sûr de vouloir retirer cet article de vos favoris ?</string>
+    <string name="removeFavourite">Retirer des Favoris</string>
+    <string name="switchDarkMode">Activer le mode sombre</string>
+    <string name="articleSection">Section : </string>
+    <string name="confirm">Confirmer</string>
+    <string name="cancel">Annuler</string>
+    <string name="undo">Annuler l\'action</string>
+    <string-array name="language_options">
+        <item>Anglais</item>
+        <item>Français</item>
+    </string-array>
+    <string name="help">Aide</string>
+    <string name="helpInstructions">Instructions pour cette activité:\n\n1. Utilisez le menu de navigation pour accéder à d\'autres fonctionnalités.\n2. Utilisez la barre d\'outils pour des options supplémentaires.\n3. Affichez vos articles ci-dessous.</string>
+    <string name="helpDetailsTitle">Aide - Détails de l\'article</string>
+    <string name="helpDetailsMessage">Cette page affiche les détails de l\'article sélectionné. Vous pouvez:\n\n- Voir le titre de l\'article, la section et l\'URL.\n- Appuyer sur l\'URL pour ouvrir l\'article dans un navigateur.\n- Utiliser l\'icône en forme de cœur dans la barre d\'outils pour ajouter ou supprimer l\'article des favoris.\n- Appuyer sur le bouton d\'aide (en bas à droite) pour obtenir des instructions.</string>
+    <string name="helpArticlesTitle">Aide - Articles Enregistrés</string>
+    <string name="helpArticlesMessage">Cette page affiche les articles que vous avez enregistrés. Maintenez un article enfoncé pour le supprimer ou appuyez dessus pour voir ses détails.</string>
+    <string name="errorParsing">Erreur d\'analyse des données</string>
+    <string name="errorFetching">Erreur lors de la récupération des données</string>
+    <string name="errorAddFavourite">Impossible d\'ajouter aux favoris</string>
+    <string name="errorRemoveFavourite">Impossible de supprimer des favoris</string>
+    <string name="snackbarHistory">Historique effacé</string>
+    <string name="snackbarDetail">Article invalide. Impossible de sauvegarder.</string>
+    <string name="snackbarAddFavourite">Article ajouté aux favoris</string>
+    <string name="snackbarRemoveFavourite">Article supprimé des favoris</string>
+    <string name="snackbarFailedFavourite">Échec de la restauration de l\'article</string>
+
+</resources>

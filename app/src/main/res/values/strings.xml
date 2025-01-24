@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="drawer_open">Open Navigation Drawer</string>
+    <string name="drawer_close">Close Navigation Drawer</string>
+    <string name="searchHint">Search articles</string>
+    <string name="searchTerm">Please enter a search term</string>
+    <string name="welcomeMessage">Welcome to the Guardian News App!</string>
+    <string name="instructionsMessage">Use the search bar above to find news articles.</string>
+    <string name="menuHome">Home</string>
+    <string name="menuSaved">Saved Articles</string>
+    <string name="menuSettings">Settings</string>
+    <string name="menuHistory">History</string>
+    <string name="clearHistory">Clear History</string>
+    <string name="helpButton">Help Button</string>
+    <string name="saveButton">Save</string>
+    <string name="searchButton">Search</string>
+    <string name="historyEmpty">No articles viewed yet.</string>
+    <string name="deleteConfirmation">Are you sure you want to remove this article from your favorites?</string>
+    <string name="removeFavourite">Remove from Favorites</string>
+    <string name="switchDarkMode">Enable Dark Mode</string>
+    <string name="articleSection">Section: </string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="undo">Undo</string>
+    <string-array name="language_options">
+        <item>English</item>
+        <item>French</item>
+    </string-array>
+    <string name="help">Help</string>
+    <string name="helpInstructions">Instructions for this activity:\n\n1. Use the navigation drawer to access other features.\n2. Use the toolbar for additional options.\n3. View your articles below.</string>
+    <string name="helpDetailsTitle">Help - Article Details</string>
+    <string name="helpDetailsMessage">This page displays the details of the selected article. You can:\n\n- View the article title, section, and URL.\n- Tap on the URL to open the article in a browser.\n- Use the heart icon in the toolbar to add or remove the article from favorites.\n- Press the Help button (bottom right) for instructions.</string>
+    <string name="helpArticlesTitle">Help - Saved Articles</string>
+    <string name="helpArticlesMessage">This page displays the articles you have saved. Long press an article to delete it, or tap to view its details.</string>
+    <string name="errorParsing">Error parsing data</string>
+    <string name="errorFetching">Error fetching data</string>
+    <string name="errorAddFavourite">Failed to add to favorites</string>
+    <string name="errorRemoveFavourite">Failed to remove from favorites</string>
+    <string name="snackbarHistory">History cleared</string>
+    <string name="snackbarDetail">Invalid article. Cannot save.</string>
+    <string name="snackbarAddFavourite">Article added to favorites</string>
+    <string name="snackbarRemoveFavourite">Article removed from favorites</string>
+    <string name="snackbarFailedFavourite">Failed to restore article</string>
+</resources>
