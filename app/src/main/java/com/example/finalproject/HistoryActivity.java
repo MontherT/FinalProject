@@ -8,17 +8,25 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * Displays the user's article browsing history and allows for clearing history or navigating to other activities.
+ */
 public class HistoryActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private HistoryFragment historyFragment;
 
+    /**
+     * Initializes the activity, sets up UI components, and embeds the HistoryFragment.
+     *
+     * @param savedInstanceState The saved state of the activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Apply the theme
@@ -38,7 +46,7 @@ public class HistoryActivity extends AppCompatActivity {
         // Initialize DrawerLayout
         drawerLayout = findViewById(R.id.drawer_layout_history);
 
-        // Set up NavigationView
+        // Set up NavigationView and its menu item click listener
         NavigationView navigationView = findViewById(R.id.navigation_view_history);
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getOrder()) {
@@ -71,14 +79,30 @@ public class HistoryActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container_history, historyFragment)
                 .commit();
+
+        // Initialize the Help Button
+        FloatingActionButton helpButton = findViewById(R.id.help_history);
+        helpButton.setOnClickListener(v -> showHelpDialog());
     }
 
+    /**
+     * Inflates the toolbar menu.
+     *
+     * @param menu The menu to inflate.
+     * @return True if the menu is successfully created.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_history, menu); // Ensure toolbar_history is correct
+        getMenuInflater().inflate(R.menu.toolbar_history, menu);
         return true;
     }
 
+    /**
+     * Handles toolbar item selections, including clearing the browsing history.
+     *
+     * @param item The selected menu item.
+     * @return True if the item is successfully handled.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_clear_history) {
@@ -88,5 +112,16 @@ public class HistoryActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Displays a help dialog with instructions for using the History activity.
+     */
+    private void showHelpDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.helpHistoryTitle))
+                .setMessage(getString(R.string.helpHistoryMessage))
+                .setPositiveButton(getString(R.string.confirm), null)
+                .show();
     }
 }

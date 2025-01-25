@@ -2,16 +2,19 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * The SavedArticlesActivity manages the user interface for displaying and interacting
+ * with saved articles. It includes navigation through the drawer and an embedded fragment
+ * to display the saved articles.
+ */
 public class SavedArticlesActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -41,19 +44,18 @@ public class SavedArticlesActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.navigation_view_saved);
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getOrder()) {
-                case 1:
+                case 1: // Navigate to Home
                     startActivity(new Intent(SavedArticlesActivity.this, MainActivity.class));
                     drawerLayout.closeDrawers();
                     return true;
-                case 2:
-                    // Stay on this activity
+                case 2: // Stay on this activity
                     drawerLayout.closeDrawers();
                     return true;
-                case 3:
+                case 3: // Navigate to History
                     startActivity(new Intent(SavedArticlesActivity.this, HistoryActivity.class));
                     drawerLayout.closeDrawers();
                     return true;
-                case 4:
+                case 4: // Navigate to Settings
                     startActivity(new Intent(SavedArticlesActivity.this, SettingsActivity.class));
                     drawerLayout.closeDrawers();
                     return true;
@@ -73,6 +75,9 @@ public class SavedArticlesActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * Displays a help dialog with instructions on how to use the saved articles feature.
+     */
     private void showHelpDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.helpArticlesTitle))
@@ -80,5 +85,4 @@ public class SavedArticlesActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.confirm), null)
                 .show();
     }
-
 }

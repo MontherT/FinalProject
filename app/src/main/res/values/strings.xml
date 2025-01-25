@@ -11,6 +11,7 @@
     <string name="menuSettings">Settings</string>
     <string name="menuHistory">History</string>
     <string name="clearHistory">Clear History</string>
+    <string name="detailsTitle">Article Details</string>
     <string name="helpButton">Help Button</string>
     <string name="saveButton">Save</string>
     <string name="searchButton">Search</string>
@@ -32,6 +33,8 @@
     <string name="helpDetailsMessage">This page displays the details of the selected article. You can:\n\n- View the article title, section, and URL.\n- Tap on the URL to open the article in a browser.\n- Use the heart icon in the toolbar to add or remove the article from favorites.\n- Press the Help button (bottom right) for instructions.</string>
     <string name="helpArticlesTitle">Help - Saved Articles</string>
     <string name="helpArticlesMessage">This page displays the articles you have saved. Long press an article to delete it, or tap to view its details.</string>
+    <string name="helpHistoryTitle">Help - History</string>
+    <string name="helpHistoryMessage">This page shows your browsing history. You can clear the history using the toolbar button or tap on an item for details.</string>
     <string name="errorParsing">Error parsing data</string>
     <string name="errorFetching">Error fetching data</string>
     <string name="errorAddFavourite">Failed to add to favorites</string>

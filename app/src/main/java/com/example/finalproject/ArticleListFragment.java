@@ -11,12 +11,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
+/**
+ * Fragment to display a list of articles using a ListView.
+ */
 public class ArticleListFragment extends Fragment {
 
     private ListView articleListView;
     private ArticleAdapter adapter;
     private ArrayList<Article> articles = new ArrayList<>();
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous state.
+     * @return The View for the fragment's UI, or null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,6 +39,7 @@ public class ArticleListFragment extends Fragment {
         adapter = new ArticleAdapter(requireContext(), articles);
         articleListView.setAdapter(adapter);
 
+        // Set up the click listener to open the DetailActivity
         articleListView.setOnItemClickListener((parent, view1, position, id) -> {
             // Get the clicked article
             Article article = articles.get(position);
@@ -43,6 +55,13 @@ public class ArticleListFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Updates the list of articles in the fragment.
+     *
+     * @param titles   The list of article titles.
+     * @param sections The list of article sections.
+     * @param urls     The list of article URLs.
+     */
     public void updateArticles(ArrayList<String> titles, ArrayList<String> sections, ArrayList<String> urls) {
         articles.clear();
         for (int i = 0; i < titles.size(); i++) {

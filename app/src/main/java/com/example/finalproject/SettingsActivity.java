@@ -3,17 +3,21 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Switch;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.navigation.NavigationView;
-
+/**
+ * The SettingsActivity allows the user to toggle the application's theme between light and dark modes.
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     private Switch switchDarkMode;
 
+    /**
+     * Called when the activity is first created. Initializes the UI and applies the current theme.
+     *
+     * @param savedInstanceState The saved state of the activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Apply theme based on saved preference
@@ -33,11 +37,11 @@ public class SettingsActivity extends AppCompatActivity {
         // Find UI Elements
         switchDarkMode = findViewById(R.id.switch_dark_mode);
 
-        // Set current state of dark mode switch
+        // Set the current state of the dark mode switch based on saved preferences
         String currentTheme = ThemeUtils.getTheme(this);
         switchDarkMode.setChecked(currentTheme.equals(ThemeUtils.THEME_DARK));
 
-        // Save preference on toggle
+        // Listener to save the user's theme preference and restart the app to apply changes
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
             String newTheme = isChecked ? ThemeUtils.THEME_DARK : ThemeUtils.THEME_LIGHT;
             ThemeUtils.setTheme(this, newTheme);

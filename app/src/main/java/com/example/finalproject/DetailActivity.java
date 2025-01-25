@@ -20,6 +20,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.net.URL;
 
+/**
+ * Displays detailed information about a selected article, including the option to save it
+ * to favorites or view it in a browser.
+ */
 public class DetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
@@ -28,20 +32,23 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView articleThumbnail;
     private DatabaseHelper databaseHelper;
     private boolean isArticleSaved = false;
-    private int articleId; // For database reference
-    private String title, section, url, thumbnailUrl; // Article details
+    private int articleId;
+    private String title, section, url, thumbnailUrl;
 
+    /**
+     * Initializes the activity, sets up UI components, and loads article details.
+     *
+     * @param savedInstanceState The saved state of the activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeUtils.applyTheme(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         // Set up Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_details);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Article Details");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -50,10 +57,10 @@ public class DetailActivity extends AppCompatActivity {
 
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        // Initialize Database Helper
+        // Initialize database helper
         databaseHelper = new DatabaseHelper(this);
 
-        // Set up Article Details
+        // Set up article details
         articleTitle = findViewById(R.id.articleTitle);
         articleSection = findViewById(R.id.articleSection);
         articleUrl = findViewById(R.id.articleUrl);
@@ -68,15 +75,14 @@ public class DetailActivity extends AppCompatActivity {
 
         // Generate a fallback ID if the ID is invalid
         if (articleId == -1 && title != null && url != null) {
-            articleId = (title + url).hashCode(); // Generate a unique ID
+            articleId = (title + url).hashCode();
             Log.w(TAG, "Invalid article ID. Generated fallback ID: " + articleId);
         }
 
-        // Help Button Setup
+        // Help Button setup
         FloatingActionButton helpButton = findViewById(R.id.help_details);
         helpButton.setOnClickListener(v -> showHelpDialog());
 
-        // Log details for debugging
         Log.d(TAG, "Received Article ID: " + articleId);
         Log.d(TAG, "Title: " + title);
         Log.d(TAG, "Section: " + section);
@@ -104,21 +110,31 @@ public class DetailActivity extends AppCompatActivity {
 
         // Check if the article is already saved
         isArticleSaved = databaseHelper.isArticleSavedById(articleId);
-
         Log.d(TAG, "isArticleSaved: " + isArticleSaved);
     }
 
+    /**
+     * Inflates the toolbar menu and sets the initial favorite icon state.
+     *
+     * @param menu The menu to inflate.
+     * @return True if the menu is successfully created.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_details, menu);
 
-        // Update the icon based on the saved state
         MenuItem favoriteItem = menu.findItem(R.id.action_save);
         updateFavoriteIcon(favoriteItem);
 
         return true;
     }
 
+    /**
+     * Handles toolbar item selections, such as saving or removing an article from favorites.
+     *
+     * @param item The selected menu item.
+     * @return True if the item is successfully handled.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -131,6 +147,11 @@ public class DetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Handles the save button click event, either saving or removing the article from favorites.
+     *
+     * @param item The menu item representing the save button.
+     */
     private void handleSaveButtonClick(MenuItem item) {
         if (articleId == -1) {
             Log.w(TAG, "Invalid article ID. Cannot save or remove.");
@@ -139,7 +160,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if (!isArticleSaved) {
-            // Save the article to favorites
             boolean success = databaseHelper.saveArticle(articleId, title, section, url);
             if (success) {
                 isArticleSaved = true;
@@ -149,7 +169,6 @@ public class DetailActivity extends AppCompatActivity {
                 showSnackbar(getString(R.string.errorAddFavourite));
             }
         } else {
-            // Prompt the user before removing
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.removeFavourite))
                     .setMessage(getString(R.string.deleteConfirmation))
@@ -168,14 +187,27 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates the favorite icon based on the article's saved state.
+     *
+     * @param item The menu item representing the save button.
+     */
     private void updateFavoriteIcon(MenuItem item) {
         item.setIcon(isArticleSaved ? R.drawable.ic_heartfill : R.drawable.ic_heartoutline);
     }
 
+    /**
+     * Displays a Snackbar with the specified message.
+     *
+     * @param message The message to display.
+     */
     private void showSnackbar(String message) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
+    /**
+     * Displays an AlertDialog with help instructions for the activity.
+     */
     private void showHelpDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.helpDetailsTitle))
@@ -184,10 +216,17 @@ public class DetailActivity extends AppCompatActivity {
                 .show();
     }
 
-
+    /**
+     * AsyncTask to load an image from a URL into an ImageView.
+     */
     private static class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
         private final ImageView imageView;
 
+        /**
+         * Constructor for LoadImageTask.
+         *
+         * @param imageView The ImageView to set the loaded image.
+         */
         public LoadImageTask(ImageView imageView) {
             this.imageView = imageView;
         }
@@ -209,7 +248,7 @@ public class DetailActivity extends AppCompatActivity {
             if (bitmap != null) {
                 imageView.setImageBitmap(bitmap);
             } else {
-                imageView.setImageResource(R.drawable.placeholder_image); // Fallback image
+                imageView.setImageResource(R.drawable.placeholder_image);
             }
         }
     }

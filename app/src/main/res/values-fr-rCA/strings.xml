@@ -11,6 +11,7 @@
     <string name="menuSettings">Paramètres</string>
     <string name="menuHistory">Historique</string>
     <string name="clearHistory">Effacer l\'historique</string>
+    <string name="detailsTitle">Article Details</string>
     <string name="helpButton">Bouton d\'Aide</string>
     <string name="saveButton">Enregistrer</string>
     <string name="searchButton">Rechercher</string>
@@ -32,6 +33,8 @@
     <string name="helpDetailsMessage">Cette page affiche les détails de l\'article sélectionné. Vous pouvez:\n\n- Voir le titre de l\'article, la section et l\'URL.\n- Appuyer sur l\'URL pour ouvrir l\'article dans un navigateur.\n- Utiliser l\'icône en forme de cœur dans la barre d\'outils pour ajouter ou supprimer l\'article des favoris.\n- Appuyer sur le bouton d\'aide (en bas à droite) pour obtenir des instructions.</string>
     <string name="helpArticlesTitle">Aide - Articles Enregistrés</string>
     <string name="helpArticlesMessage">Cette page affiche les articles que vous avez enregistrés. Maintenez un article enfoncé pour le supprimer ou appuyez dessus pour voir ses détails.</string>
+    <string name="helpHistoryTitle">Aide - Historique</string>
+    <string name="helpHistoryMessage">Cette page montre votre historique de navigation. Vous pouvez effacer l\'historique à l\'aide du bouton de la barre d\'outils ou appuyer sur un élément pour afficher ses détails.</string>
     <string name="errorParsing">Erreur d\'analyse des données</string>
     <string name="errorFetching">Erreur lors de la récupération des données</string>
     <string name="errorAddFavourite">Impossible d\'ajouter aux favoris</string>

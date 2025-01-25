@@ -29,6 +29,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * The main activity of the application, acting as a landing page and handling the main navigation,
+ * search functionality, and fragment transactions for displaying articles.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -118,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows the help dialog with instructions for using the main activity.
+     */
     private void showHelpDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.help))
@@ -125,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.confirm), null)
                 .show();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -154,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * AsyncTask to fetch articles from The Guardian API.
+     */
     private class FetchArticlesTask extends AsyncTask<String, Void, String> {
 
         private ArrayList<String> articleTitles = new ArrayList<>();

@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * A helper class to manage the application's SQLite database for storing saved and viewed articles.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "articles.db";
@@ -22,10 +25,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table for viewed articles
     private static final String TABLE_NAME_VIEWED = "viewed_articles";
 
+    /**
+     * Constructor for DatabaseHelper.
+     *
+     * @param context The application context.
+     */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Called when the database is created for the first time.
+     *
+     * @param db The database.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create saved_articles table
@@ -45,9 +58,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createViewedArticlesTable);
     }
 
+    /**
+     * Called when the database needs to be upgraded.
+     *
+     * @param db         The database.
+     * @param oldVersion The old database version.
+     * @param newVersion The new database version.
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Upgrade logic to add the viewed_articles table for version 2
         if (oldVersion < 2) {
             String createViewedArticlesTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_VIEWED + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -58,46 +77,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Save an article to the saved_articles table
+    /**
+     * Saves an article to the saved_articles table.
+     *
+     * @param id      The article ID.
+     * @param title   The article title.
+     * @param section The article section.
+     * @param url     The article URL.
+     * @return True if the article was successfully saved, false otherwise.
+     */
     public boolean saveArticle(int id, String title, String section, String url) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, id); // Use the provided ID
+        values.put(COLUMN_ID, id);
         values.put(COLUMN_TITLE, title);
         values.put(COLUMN_SECTION, section);
         values.put(COLUMN_URL, url);
 
         long result = db.insert(TABLE_NAME_SAVED, null, values);
-        return result != -1; // Returns true if the insert was successful
+        return result != -1;
     }
 
-    // Check if an article is saved by its ID
+    /**
+     * Checks if an article is saved by its ID.
+     *
+     * @param id The article ID.
+     * @return True if the article is saved, false otherwise.
+     */
     public boolean isArticleSavedById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT 1 FROM saved_articles WHERE id = ?", new String[]{String.valueOf(id)});
         boolean exists = cursor.getCount() > 0;
         cursor.close();
 
-        // Debug Log
         Log.d("DatabaseHelper", "isArticleSavedById: Article ID " + id + " saved: " + exists);
-
         return exists;
     }
 
-
-    // Delete an article by its ID
+    /**
+     * Deletes an article from the saved_articles table by its ID.
+     *
+     * @param id The article ID.
+     * @return True if the article was successfully deleted, false otherwise.
+     */
     public boolean deleteArticleById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME_SAVED, COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    // Get all saved articles
+    /**
+     * Retrieves all saved articles.
+     *
+     * @return A Cursor containing all saved articles.
+     */
     public Cursor getSavedArticles() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME_SAVED, null);
     }
 
-    // Get the ID of the last inserted article
+    /**
+     * Retrieves the ID of the last inserted article.
+     *
+     * @return The ID of the last inserted article, or -1 if no articles are found.
+     */
     public int getLastInsertedId() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT id FROM " + TABLE_NAME_SAVED + " ORDER BY id DESC LIMIT 1", null);
@@ -111,10 +153,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.close();
         }
-        return -1; // Return -1 if no articles are found
+        return -1;
     }
 
-    // Save a viewed article to the viewed_articles table
+    /**
+     * Saves a viewed article to the viewed_articles table.
+     *
+     * @param title   The article title.
+     * @param section The article section.
+     * @param url     The article URL.
+     * @return True if the article was successfully saved, false otherwise.
+     */
     public boolean saveToHistory(String title, String section, String url) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -123,16 +172,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_URL, url);
 
         long result = db.insert(TABLE_NAME_VIEWED, null, values);
-        return result != -1; // Returns true if the insert was successful
+        return result != -1;
     }
 
-    // Get all viewed articles
+    /**
+     * Retrieves all viewed articles from the history.
+     *
+     * @return A Cursor containing all viewed articles.
+     */
     public Cursor getHistory() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME_VIEWED, null);
     }
 
-    // Clear all history
+    /**
+     * Clears all viewed articles from the history.
+     */
     public void clearHistory() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME_VIEWED);

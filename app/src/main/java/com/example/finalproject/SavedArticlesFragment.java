@@ -14,6 +14,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+/**
+ * The SavedArticlesFragment is responsible for displaying a list of saved articles.
+ * Users can view the details of an article by clicking on it or delete it with an undo option.
+ */
 public class SavedArticlesFragment extends Fragment {
 
     private ListView savedArticlesListView;
@@ -24,6 +28,14 @@ public class SavedArticlesFragment extends Fragment {
     private ArrayList<String> articleSections = new ArrayList<>();
     private ArrayList<String> articleUrls = new ArrayList<>();
 
+    /**
+     * Inflates the layout for the fragment and sets up the ListView with saved articles.
+     *
+     * @param inflater           The LayoutInflater used to inflate the layout.
+     * @param container          The parent container the fragment UI should be attached to.
+     * @param savedInstanceState The saved state of the fragment.
+     * @return The root view of the fragment.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,31 +44,31 @@ public class SavedArticlesFragment extends Fragment {
         savedArticlesListView = view.findViewById(R.id.savedArticlesListView);
         databaseHelper = new DatabaseHelper(requireContext());
 
-        // Custom adapter using the same ArrayList<String>
+        // Custom adapter to display article titles and sections
         adapter = new SavedArticlesAdapter(requireContext(), savedArticles, articleSections);
         savedArticlesListView.setAdapter(adapter);
 
         loadSavedArticles();
 
-        // Open article details when clicked
+        // Set up click listener to open article details in DetailActivity
         savedArticlesListView.setOnItemClickListener((parent, view1, position, id) -> {
             Intent intent = new Intent(requireContext(), DetailActivity.class);
-            intent.putExtra("id", articleIds.get(position)); // Pass the article ID
+            intent.putExtra("id", articleIds.get(position));  // Pass the article ID
             intent.putExtra("title", savedArticles.get(position));
             intent.putExtra("section", articleSections.get(position));
             intent.putExtra("url", articleUrls.get(position));
             startActivity(intent);
         });
 
-        // Remove article from favorites on long press with undo option
+        // Set up long click listener to remove articles from favorites with undo option
         savedArticlesListView.setOnItemLongClickListener((parent, view1, position, id) -> {
-            // Store article details before removing
+            // Store article details before removal
             int articleId = articleIds.get(position);
             String removedTitle = savedArticles.get(position);
             String removedSection = articleSections.get(position);
             String removedUrl = articleUrls.get(position);
 
-            // Delete article from the database
+            // Delete the article from the database
             boolean deleteSuccess = databaseHelper.deleteArticleById(articleId);
 
             if (deleteSuccess) {
@@ -72,7 +84,7 @@ public class SavedArticlesFragment extends Fragment {
                     // Re-add the article to the database
                     boolean restoreSuccess = databaseHelper.saveArticle(articleId, removedTitle, removedSection, removedUrl);
                     if (restoreSuccess) {
-                        loadSavedArticles(); // Reload data to reflect undo
+                        loadSavedArticles();  // Reload data to reflect the undo action
                     } else {
                         showSnackbar(view, getString(R.string.snackbarFailedFavourite), null, null);
                     }
@@ -84,6 +96,9 @@ public class SavedArticlesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Loads saved articles from the database and populates the ListView.
+     */
     private void loadSavedArticles() {
         Cursor cursor = databaseHelper.getSavedArticles();
         savedArticles.clear();
@@ -108,6 +123,14 @@ public class SavedArticlesFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Displays a Snackbar message with an optional action.
+     *
+     * @param view            The view to find a parent from.
+     * @param message         The message to display in the Snackbar.
+     * @param action          The label for the action button (if any).
+     * @param actionListener  The listener to invoke when the action is clicked (if any).
+     */
     private void showSnackbar(View view, String message, String action, View.OnClickListener actionListener) {
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         if (action != null && actionListener != null) {

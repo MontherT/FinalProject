@@ -3,15 +3,22 @@ package com.example.finalproject;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Utility class for handling theme preferences and applying the selected theme to the application.
+ */
 public class ThemeUtils {
 
-    private static final String PREFERENCES_NAME = "AppSettings";
-    private static final String THEME_KEY = "app_theme";
+    private static final String PREFERENCES_NAME = "AppSettings";  // Name of the SharedPreferences file
+    private static final String THEME_KEY = "app_theme";  // Key for storing the theme preference
 
-    public static final String THEME_LIGHT = "light";
-    public static final String THEME_DARK = "dark";
+    public static final String THEME_LIGHT = "light";  // Constant for light theme
+    public static final String THEME_DARK = "dark";  // Constant for dark theme
 
-    // Apply theme to the current context
+    /**
+     * Applies the saved theme to the provided context.
+     *
+     * @param context The context to which the theme should be applied.
+     */
     public static void applyTheme(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         String theme = preferences.getString(THEME_KEY, THEME_LIGHT);
@@ -23,7 +30,12 @@ public class ThemeUtils {
         }
     }
 
-    // Set theme preference
+    /**
+     * Saves the selected theme preference.
+     *
+     * @param context The context used to access the preferences.
+     * @param theme   The theme to be saved, either {@link #THEME_LIGHT} or {@link #THEME_DARK}.
+     */
     public static void setTheme(Context context, String theme) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -31,7 +43,12 @@ public class ThemeUtils {
         editor.apply();
     }
 
-    // Get current theme preference
+    /**
+     * Retrieves the current theme preference.
+     *
+     * @param context The context used to access the preferences.
+     * @return The current theme preference, either {@link #THEME_LIGHT} or {@link #THEME_DARK}.
+     */
     public static String getTheme(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         return preferences.getString(THEME_KEY, THEME_LIGHT);

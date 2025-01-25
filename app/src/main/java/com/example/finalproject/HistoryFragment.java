@@ -16,6 +16,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment for displaying and managing the user's browsing history.
+ */
 public class HistoryFragment extends Fragment {
 
     private ListView historyListView;
@@ -25,6 +28,14 @@ public class HistoryFragment extends Fragment {
     private ArrayList<String> historySections = new ArrayList<>();
     private ArrayList<String> historyUrls = new ArrayList<>();
 
+    /**
+     * Inflates the layout and initializes the view components for the history fragment.
+     *
+     * @param inflater LayoutInflater to inflate the fragment layout.
+     * @param container ViewGroup that contains the fragment UI.
+     * @param savedInstanceState Bundle containing the saved state of the fragment.
+     * @return The inflated view of the fragment.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +61,9 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Loads the browsing history from the database and updates the ListView.
+     */
     public void loadHistory() {
         Cursor cursor = databaseHelper.getHistory();
         historyTitles.clear();
@@ -71,6 +85,9 @@ public class HistoryFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Clears the browsing history from the database and updates the UI.
+     */
     public void clearHistory() {
         databaseHelper.clearHistory();
         historyTitles.clear();
@@ -82,4 +99,3 @@ public class HistoryFragment extends Fragment {
         }
     }
 }
-
